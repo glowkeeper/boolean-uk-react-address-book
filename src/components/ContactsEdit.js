@@ -3,7 +3,13 @@ import { useNavigate,useParams } from "react-router-dom";
 
 import { ContactsForm } from "./ContactsForm";
 
-import { contact, fetchData, apiURL, Paths, getContact } from '../utils'
+import { 
+  contact, 
+  fetchData, 
+  apiURL, 
+  Paths, 
+  UIText,
+  getContact } from '../utils'
 
 export const ContactsEdit = (props) => {
 
@@ -76,8 +82,8 @@ export const ContactsEdit = (props) => {
 
   return (
     <ContactsForm settings={{
-      heading: "Edit Contact", 
-      buttonText: "Edit", 
+      heading: UIText.contactEditTitle, 
+      buttonText: UIText.contactEditButton, 
       value: changedContact, 
       handleChange: handleChange, 
       handleSubmit: handleSubmit

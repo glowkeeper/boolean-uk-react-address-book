@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom"
+import { UIText } from "../utils"
 
 export const ContactsView = (props) => {
 
@@ -10,21 +11,17 @@ export const ContactsView = (props) => {
 
   return (
     <>
-      <h2>Contact Info</h2>
+      <h2>{UIText.contactViewTitle}</h2>
       {
         contact ? (
 
-          <>
-            
+          <>            
             <p>{contact.firstName} {contact.lastName}</p>
             <p>{contact.street} {contact.city}</p>
           </>
 
         ) : (
-
-          <>
-            <p>No such contact...</p>
-          </>
+            <p>{UIText.contactViewNone}</p>
         )
       }
     </>

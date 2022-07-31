@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom"
 
-import { Paths } from "../utils"
+import { Paths, UIText } from "../utils"
 
 export const ContactsList = (props) => {
   
-  const { contacts, setContacts } = props
+  const { contacts } = props
 
   return (
     <>
       <header>
-        <h2>Contacts</h2>
+        <h2>{UIText.contactListTitle}</h2>
       </header>
       <ul className="contacts-list">
         {contacts.map((contact, index) => {
@@ -20,9 +20,9 @@ export const ContactsList = (props) => {
               <p>
                 {firstName} {lastName}
               </p>
-              <Link to={`${Paths.view}/${id}`}>View</Link>
-              <Link to={`${Paths.edit}/${id}`}>Edit</Link>
-              <Link to={`${Paths.delete}/${id}`}>Delete</Link>
+              <Link to={`${Paths.view}/${id}`}>{UIText.contactListView}</Link>
+              <Link to={`${Paths.edit}/${id}`}>{UIText.contactListEdit}</Link>
+              <Link to={`${Paths.delete}/${id}`}>{UIText.contactListDelete}</Link>
             </li>
           )
         })}

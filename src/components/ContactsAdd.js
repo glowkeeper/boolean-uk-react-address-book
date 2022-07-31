@@ -3,7 +3,13 @@ import { useNavigate } from "react-router-dom";
 
 import { ContactsForm } from "./ContactsForm";
 
-import { contact, fetchData, apiURL, Paths } from '../utils'
+import { 
+  contact, 
+  fetchData, 
+  apiURL, 
+  Paths, 
+  UIText
+} from '../utils'
 
 export const ContactsAdd = (props) => {
 
@@ -56,8 +62,8 @@ export const ContactsAdd = (props) => {
 
   return (
     <ContactsForm settings={{
-      heading: "Create Contact", 
-      buttonText: "Create", 
+      heading: UIText.contactAddTitle, 
+      buttonText: UIText.contactAddButton, 
       value: newContact, 
       handleChange: handleChange, 
       handleSubmit: handleSubmit

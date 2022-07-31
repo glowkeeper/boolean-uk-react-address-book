@@ -1,7 +1,14 @@
 import { useState, useEffect } from "react"
 import { useNavigate,useParams } from "react-router-dom";
 
-import { contact, fetchData, apiURL, Paths, getContact } from '../utils'
+import { 
+  contact, 
+  fetchData, 
+  apiURL, 
+  Paths, 
+  UIText, 
+  getContact 
+} from '../utils'
 
 export const ContactsDelete = (props) => {
 
@@ -54,7 +61,7 @@ export const ContactsDelete = (props) => {
 
   return (
     <>
-      <h2>Delete Contact</h2>
+      <h2>{UIText.contactDeleteTitle}</h2>
       {
         deletedContact ? (
 
@@ -63,7 +70,7 @@ export const ContactsDelete = (props) => {
             <p>{deletedContact.firstName} {deletedContact.lastName}</p>
             <p>{deletedContact.street} {deletedContact.city}</p>
 
-            <p>Are you sure you want to delete this contact?</p>
+            <p>{UIText.contactDeleteConfirm}</p>
 
             <button className="delete" onClick={handleDelete}>Yes</button>
             <button className="delete" onClick={handleNoDelete}>No</button>

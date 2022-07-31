@@ -10,7 +10,12 @@ import {
   ContactsView
 } from "./components"
 
-import { fetchData, apiURL, Paths } from "./utils"
+import { 
+  UIText, 
+  fetchData, 
+  apiURL, 
+  Paths
+} from "./utils"
 
 export const App = () => {
   const [contacts, setContacts] = useState([])
@@ -30,13 +35,13 @@ export const App = () => {
   return (
     <>
     <nav>
-      <h2>Menu</h2>
+      <h2>{UIText.title}</h2>
       <ul>
         <li>
-          <Link to={Paths.home}>Contacts List</Link>
+          <Link to={Paths.home}>{UIText.linkList}</Link>
         </li>
         <li>
-          <Link to={Paths.add}>Add New Contact</Link>
+          <Link to={Paths.add}>{UIText.linkAdd}</Link>
         </li>
       </ul>
     </nav>
