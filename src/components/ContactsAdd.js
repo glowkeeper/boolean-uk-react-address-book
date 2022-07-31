@@ -1,39 +1,66 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom";
 
-function ContactsAdd(props) {
+import { ContactsForm } from "./ContactsForm";
 
-  // setContacts and contacts must be passed as props
-  // to this component so new contacts can be added to the
-  // state
+import { contact, fetchData, apiURL, Paths } from '../utils'
+
+export const ContactsAdd = (props) => {
+
   const { setContacts, contacts } = props
 
-  //TODO: Implement controlled form
-  //send POST to json server on form submit
+  const [newContact, setNewContact] = useState(contact)
+  const [hasSubmitted, setHasSubmitted] = useState(false)
+
+  const navigate = useNavigate()
+
+  const addContact = (data) => {
+
+    setContacts([...contacts, data])    
+    navigate(Paths.home)
+  }
+
+  useEffect(() => {
+
+    if (hasSubmitted) {
+
+      const fetchOptions = {
+        method: 'POST',
+        headers: {
+          "Content-Type": 'application/json'
+        },
+        body: JSON.stringify(newContact)
+      }
+
+      const fetchDataParams = {
+        url: apiURL,
+        options: fetchOptions,
+        cb: addContact
+      }
+
+      fetchData(fetchDataParams)
+
+    }
+  }, [hasSubmitted])
+
+  const handleChange = event => {
+    const { name, value } = event.target
+    const contactData = {...newContact, [name]: value}
+    setNewContact(contactData)
+  }
+
+  const handleSubmit = async event => {
+    event.preventDefault()
+    setHasSubmitted(true)
+  }
 
   return (
-    <form className="form-stack contact-form">
-      <h2>Create Contact</h2>
-
-      <label htmlFor="firstName">First Name</label>
-      <input id="firstName" name="firstName" type="text" required />
-
-      <label htmlFor="lastName">Last Name:</label>
-      <input id="lastName" name="lastName" type="text" required/>
-
-      <label htmlFor="street">Street:</label>
-      <input id="street" name="street" type="text" required/>
-
-      <label htmlFor="city">City:</label>
-      <input id="city" name="city" type="text" required/>
-
-      <div className="actions-section">
-        <button className="button blue" type="submit">
-          Create
-        </button>
-      </div>
-    </form>
+    <ContactsForm settings={{
+      heading: "Create Contact", 
+      buttonText: "Create", 
+      value: newContact, 
+      handleChange: handleChange, 
+      handleSubmit: handleSubmit
+    }} />
   )
 }
-
-export default ContactsAdd

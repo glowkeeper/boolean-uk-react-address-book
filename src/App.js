@@ -1,30 +1,63 @@
 import { useEffect, useState } from "react"
-import { Link, Route, Routes } from "react-router-dom"
-import ContactsList from "./components/ContactsList"
-import ContactsAdd from "./components/ContactsAdd"
-import ContactsView from "./components/ContactsView"
-import "./styles/styles.css"
 
-export default function App() {
+import { Link, Route, Routes } from "react-router-dom"
+
+import { 
+  ContactsList,
+  ContactsAdd,
+  ContactsEdit,
+  ContactsDelete,
+  ContactsView
+} from "./components"
+
+import { fetchData, apiURL, Paths } from "./utils"
+
+export const App = () => {
   const [contacts, setContacts] = useState([])
   
-  //TODO: Load all contacts on useEffect when component first renders
+  useEffect(() => {
+
+    const fetchParams = {
+      url: apiURL,
+      cb: setContacts
+    }
+    fetchData(fetchParams)
+
+  }, []); 
+
+  //console.log('my contacts', contacts)
 
   return (
     <>
-      <nav>
-        <h2>Menu</h2>
-        <ul>
-          {/* TODO: Make these links */}
-          <li>Contacts List</li>
-          <li>Add New Contact</li>
-        </ul>
-      </nav>
-      <main>
-        <Routes>
-          {/* TODO: Add routes here  */}
-        </Routes>
-      </main>
+    <nav>
+      <h2>Menu</h2>
+      <ul>
+        <li>
+          <Link to={Paths.home}>Contacts List</Link>
+        </li>
+        <li>
+          <Link to={Paths.add}>Add New Contact</Link>
+        </li>
+      </ul>
+    </nav>
+    <main>
+      <Routes>
+        <Route path={Paths.home} element={<ContactsList contacts={contacts} />} />
+        <Route
+          path={Paths.add} 
+          element={<ContactsAdd contacts={contacts} setContacts={setContacts} />}
+        />
+        <Route 
+          path={Paths.editId} 
+          element={<ContactsEdit contacts={contacts} setContacts={setContacts} />} 
+        />
+        <Route 
+          path={Paths.deleteId} 
+          element={<ContactsDelete contacts={contacts} setContacts={setContacts} />} 
+        />
+        <Route path={Paths.viewId} element={<ContactsView contacts={contacts} />} />
+      </Routes>
+    </main>
     </>
   )
 }

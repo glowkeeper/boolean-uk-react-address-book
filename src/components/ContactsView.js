@@ -1,23 +1,32 @@
-import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 
-function ContactsView() {
-  const [contact, setContact] = useState(false)
+export const ContactsView = (props) => {
 
-  //TODO: Get the contact to load from the params and fetch.
-  //With useEffect, load the contact when params changes
-  //and update contact state
+  const { contacts } = props
 
-  if (!contact) {
-    return <p>Loading</p>
-  }
+  const { id } = useParams()
+
+  const contact = contacts.find(contact => Number(contact.id) === Number(id))
 
   return (
-    <div>
-      <h2>{contact.firstName} {contact.lastName}</h2>
-      <p>{contact.street} {contact.city}</p>
-    </div>
+    <>
+      <h2>Contact Info</h2>
+      {
+        contact ? (
+
+          <>
+            
+            <p>{contact.firstName} {contact.lastName}</p>
+            <p>{contact.street} {contact.city}</p>
+          </>
+
+        ) : (
+
+          <>
+            <p>No such contact...</p>
+          </>
+        )
+      }
+    </>
   )
 }
-
-export default ContactsView

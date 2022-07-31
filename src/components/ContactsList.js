@@ -1,10 +1,10 @@
-import { useState } from "react"
-import { Link, useSearchParams } from "react-router-dom"
+import { Link } from "react-router-dom"
 
-function ContactsList(props) {
+import { Paths } from "../utils"
+
+export const ContactsList = (props) => {
   
-  //"contacts" must be passed as prop to this component
-  const { contacts } = props
+  const { contacts, setContacts } = props
 
   return (
     <>
@@ -13,16 +13,16 @@ function ContactsList(props) {
       </header>
       <ul className="contacts-list">
         {contacts.map((contact, index) => {
-          const { firstName, lastName } = contact
+
+          const { id, firstName, lastName } = contact
           return (
             <li className="contact" key={index}>
               <p>
                 {firstName} {lastName}
               </p>
-              <p>
-                { /** TODO: Make a Link here to view contact */}
-                View
-              </p>
+              <Link to={`${Paths.view}/${id}`}>View</Link>
+              <Link to={`${Paths.edit}/${id}`}>Edit</Link>
+              <Link to={`${Paths.delete}/${id}`}>Delete</Link>
             </li>
           )
         })}
@@ -30,5 +30,3 @@ function ContactsList(props) {
     </>
   )
 }
-
-export default ContactsList
