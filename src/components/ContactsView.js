@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom"
-import { UIText } from "../utils"
+import { UIText, getContact } from "../utils"
 
 export const ContactsView = (props) => {
 
@@ -7,7 +7,7 @@ export const ContactsView = (props) => {
 
   const { id } = useParams()
 
-  const contact = contacts.find(contact => Number(contact.id) === Number(id))
+  const contact = getContact(id, contacts)
 
   return (
     <>
